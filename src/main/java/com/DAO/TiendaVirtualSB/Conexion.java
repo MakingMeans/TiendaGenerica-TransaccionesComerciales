@@ -7,17 +7,17 @@ import java.sql.*;
  */
 public class Conexion {
    /**Parametros de conexion*/
-   static String bd = "dbgrupo12";
-   static String login = "admin";
-   static String password = "dbgrupo12";
-   static String url = "jdbc:mysql://dbgrupo12.czo3ixoe3xoe.us-east-1.rds.amazonaws.com/"+bd;
+   static String bd = "tienda_db";
+   static String login = "root";
+   static String password = "root";
+   static String url = "jdbc:mysql://localhost:3306/"+bd;
 
    Connection connection = null;
    /** Constructor de DbConnection */
    public Conexion() {
       try{
          //obtenemos el driver de para mysql
-         Class.forName("org.mariadb.jdbc.Driver");
+         Class.forName("com.mysql.cj.jdbc.Driver");
          //obtenemos la conexión
          connection = DriverManager.getConnection(url,login,password);
          if (connection!=null){
