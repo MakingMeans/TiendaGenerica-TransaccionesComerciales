@@ -8,8 +8,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./db/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
-      - ./db/data.sql:/docker-entrypoint-initdb.d/2-data.sql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./database/data.sql:/docker-entrypoint-initdb.d/2-data.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s

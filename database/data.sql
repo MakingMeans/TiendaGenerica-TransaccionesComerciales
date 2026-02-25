@@ -3,47 +3,97 @@ USE tienda_db;
 -- =============================
 -- USUARIOS
 -- =============================
-INSERT INTO usuarios VALUES
-(1,'admin@tienda.com','Administrador','admin123456','admininicial'),
-(2,'cajero@tienda.com','Cajero 1','1234','cajero');
+INSERT INTO usuarios 
+(cedula_usuario, nombre_usuario, apellido_usuario, email_usuario, username, password, activo)
+VALUES
+('1001','Admin','Principal','admin@tienda.com','admin','admin123456',TRUE),
+('1002','Cajero','Uno','cajero@tienda.com','cajero','1234',TRUE);
 
 -- =============================
 -- CLIENTES
 -- =============================
-INSERT INTO clientes VALUES
-(101,'Calle 10 #20-30','juan@mail.com','Juan Perez','3101111111'),
-(102,'Cra 50 #12-40','maria@mail.com','Maria Lopez','3112222222'),
-(103,'Av 68 #90-10','carlos@mail.com','Carlos Ruiz','3123333333');
+INSERT INTO clientes
+(cedula_cliente, nombre_cliente, apellido_cliente, direccion, telefono, email_cliente)
+VALUES
+('101','Juan','Perez','Calle 10 #20-30','3101111111','juan@mail.com'),
+('102','Maria','Lopez','Cra 50 #12-40','3112222222','maria@mail.com'),
+('103','Carlos','Ruiz','Av 68 #90-10','3123333333','carlos@mail.com');
 
 -- =============================
 -- PROVEEDORES
 -- =============================
-INSERT INTO proveedores VALUES
-(1,'Bogotá','Zona Industrial 1','Proveedor Norte','6011111111'),
-(2,'Medellín','Zona Industrial 2','Proveedor Centro','6042222222'),
-(3,'Cali','Zona Industrial 3','Proveedor Sur','6023333333'),
-(4,'Barranquilla','Zona Industrial 4','Proveedor Costa','6054444444'),
-(5,'Cartagena','Zona Industrial 5','Proveedor Mar','6055555555');
+INSERT INTO proveedores
+(nit, nombre_proveedor, direccion, telefono, ciudad)
+VALUES
+('900001','Proveedor Norte','Zona Industrial 1','6011111111','Bogotá'),
+('900002','Proveedor Centro','Zona Industrial 2','6042222222','Medellín'),
+('900003','Proveedor Sur','Zona Industrial 3','6023333333','Cali'),
+('900004','Proveedor Costa','Zona Industrial 4','6054444444','Barranquilla'),
+('900005','Proveedor Mar','Zona Industrial 5','6055555555','Cartagena');
 
 -- =============================
--- PRODUCTOS (los del PDF)
+-- PRODUCTOS
 -- =============================
-INSERT INTO productos VALUES
-(1,'Melocotones',1,25505,19,30351),
-(2,'Manzanas',3,18108,19,21549),
-(3,'Plátanos',4,29681,19,35320),
-(4,'Lechuga',3,29788,19,35448),
-(5,'Tomates',1,12739,19,15159),
-(6,'Calabaza',1,21315,19,25365),
-(7,'Apio',2,19249,19,22906),
-(8,'Pepino',2,10958,19,13040),
-(9,'Champiñones',2,11046,19,13145),
-(10,'Leche',5,21150,19,25169),
-(11,'Queso',5,26571,19,31619),
-(12,'Huevos',2,12445,19,14810),
-(13,'Requesón',1,14329,19,17052),
-(14,'Crema agria',1,14856,19,17679),
-(15,'Yogur',5,14941,19,17780),
-(16,'Ternera',5,29335,19,34909),
-(17,'Salmón salvaje',5,11878,19,14135),
-(18,'Patas de cangrejo',1,29951,19,35642);
+INSERT INTO productos
+(codigo_producto, nombre_producto, precio_venta, iva, stock, activo)
+VALUES
+(1,'Melocotones',25505,19,30351,TRUE),
+(2,'Manzanas',18108,19,21549,TRUE),
+(3,'Plátanos',29681,19,35320,TRUE),
+(4,'Lechuga',29788,19,35448,TRUE),
+(5,'Tomates',12739,19,15159,TRUE),
+(6,'Calabaza',21315,19,25365,TRUE),
+(7,'Apio',19249,19,22906,TRUE),
+(8,'Pepino',10958,19,13040,TRUE),
+(9,'Champiñones',11046,19,13145,TRUE),
+(10,'Leche',21150,19,25169,TRUE),
+(11,'Queso',26571,19,31619,TRUE),
+(12,'Huevos',12445,19,14810,TRUE),
+(13,'Requesón',14329,19,17052,TRUE),
+(14,'Crema agria',14856,19,17679,TRUE),
+(15,'Yogur',14941,19,17780,TRUE),
+(16,'Ternera',29335,19,34909,TRUE),
+(17,'Salmón salvaje',11878,19,14135,TRUE),
+(18,'Patas de cangrejo',29951,19,35642,TRUE);
+
+USE tienda_db;
+
+-- =============================
+-- COMPRAS
+-- =============================
+INSERT INTO compras
+(id_proveedor, id_usuario, total_compra)
+VALUES
+(1,1,500000),
+(2,2,350000);
+
+-- =============================
+-- DETALLE_COMPRAS
+-- =============================
+INSERT INTO detalle_compras
+(id_compra, id_producto, cantidad, precio_unitario)
+VALUES
+(1,1,50,20000),
+(1,2,40,15000),
+(2,3,30,25000),
+(2,4,20,22000);
+
+-- =============================
+-- VENTAS
+-- =============================
+INSERT INTO ventas
+(codigo_venta, id_cliente, id_usuario, total_venta, total_iva, total_con_iva)
+VALUES
+(10001,1,1,50000,9500,59500),
+(10002,2,2,80000,15200,95200);
+
+-- =============================
+-- DETALLE_VENTAS
+-- =============================
+INSERT INTO detalle_ventas
+(id_venta, id_producto, cantidad, valor_unitario, valor_total)
+VALUES
+(1,1,2,25505,51010),
+(1,5,1,12739,12739),
+(2,3,2,29681,59362),
+(2,10,1,21150,21150);
