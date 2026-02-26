@@ -16,7 +16,7 @@ public class Compra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_compra")
-    private Long id_compra;
+    private Long idCompra;
 
     @ManyToOne
     @JoinColumn(name = "id_proveedor", nullable = false)
@@ -27,8 +27,8 @@ public class Compra {
     private Usuario usuario;
 
     @Column(name = "total_compra", nullable = false, precision = 15, scale = 2)
-    private BigDecimal total_compra;
+    private BigDecimal totalCompra;
 
     @Column(name = "fecha_compra")
-    private LocalDateTime fecha_compra;
+    private LocalDateTime fechaCompra;
 }

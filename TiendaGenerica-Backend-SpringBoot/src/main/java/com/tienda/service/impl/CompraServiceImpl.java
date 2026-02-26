@@ -37,7 +37,7 @@ public class CompraServiceImpl implements CompraService {
     public Compra update(Long id, Compra compra) {
         return repository.findById(id)
                 .map(db -> {
-                    compra.setId_compra(id);
+                    compra.setIdCompra(id);
                     return repository.save(compra);
                 })
                 .orElseThrow(() -> new RuntimeException("Compra no encontrada"));

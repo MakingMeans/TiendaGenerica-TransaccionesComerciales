@@ -36,7 +36,7 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente update(Long id, Cliente cliente) {
         return repository.findById(id)
                 .map(db -> {
-                    cliente.setId_cliente(id);
+                    cliente.setIdCliente(id);
                     return repository.save(cliente);
                 })
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));

@@ -13,16 +13,16 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
-    private Long id_cliente;
+    private Long idCliente;
 
     @Column(name = "cedula_cliente", nullable = false, unique = true, length = 20)
-    private String cedula_cliente;
+    private String cedulaCliente;
 
     @Column(name = "nombre_cliente", nullable = false, length = 20)
-    private String nombre_cliente;
+    private String nombreCliente;
 
     @Column(name = "apellido_cliente", nullable = false, length = 20)
-    private String apellido_cliente;
+    private String apellidoCliente;
 
     @Column(name = "direccion", length = 150)
     private String direccion;
@@ -31,5 +31,5 @@ public class Cliente {
     private String telefono;
 
     @Column(name = "email_cliente", length = 50)
-    private String email_cliente;
+    private String emailCliente;
 }

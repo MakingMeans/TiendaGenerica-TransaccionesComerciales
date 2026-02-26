@@ -10,20 +10,20 @@ import lombok.Setter;
 @Setter
 public class DetalleVentaDTO {
 
-    private Long id_detalle;
+    private Long idDetalle;
 
     @NotNull
-    private Long id_venta;
+    private Long idVenta;
 
     @NotNull
-    private Long id_producto;
+    private Long idProducto;
 
     @NotNull
     private Integer cantidad;
 
     @NotNull
-    private BigDecimal valor_unitario;
+    private BigDecimal valorUnitario;
 
     @NotNull
-    private BigDecimal valor_total;
+    private BigDecimal valorTotal;
 }

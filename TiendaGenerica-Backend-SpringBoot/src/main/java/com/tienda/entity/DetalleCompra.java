@@ -29,5 +29,5 @@ public class DetalleCompra {
     private Integer cantidad;
 
     @Column(name = "precio_unitario", nullable = false, precision = 15, scale = 2)
-    private BigDecimal precio_unitario;
+    private BigDecimal precioUnitario;
 }

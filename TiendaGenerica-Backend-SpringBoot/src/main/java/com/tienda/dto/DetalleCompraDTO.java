@@ -13,14 +13,14 @@ public class DetalleCompraDTO {
     private Long id;
 
     @NotNull
-    private Long id_compra;
+    private Long idCompra;
 
     @NotNull
-    private Long id_producto;
+    private Long idProducto;
 
     @NotNull
     private Integer cantidad;
 
     @NotNull
-    private BigDecimal precio_unitario;
+    private BigDecimal precioUnitario;
 }

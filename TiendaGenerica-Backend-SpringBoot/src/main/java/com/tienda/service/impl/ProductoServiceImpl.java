@@ -37,7 +37,7 @@ public class ProductoServiceImpl implements ProductoService {
     public Producto update(Long id, Producto producto) {
         return repository.findById(id)
                 .map(db -> {
-                    producto.setId_producto(id);
+                    producto.setIdProducto(id);
                     return repository.save(producto);
                 })
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));

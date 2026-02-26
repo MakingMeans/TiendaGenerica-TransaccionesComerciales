@@ -10,16 +10,16 @@ import lombok.Setter;
 @Setter
 public class ProductoDTO {
 
-    private Long id_producto;
+    private Long idProducto;
 
     @NotNull
-    private Long codigo_producto;
+    private Long codigoProducto;
 
     @NotBlank
-    private String nombre_producto;
+    private String nombreProducto;
 
     @NotNull
-    private BigDecimal precio_venta;
+    private BigDecimal precioVenta;
 
     @NotNull
     private BigDecimal iva;

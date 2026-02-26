@@ -9,20 +9,19 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClienteDTO {
-
-    private Long id_cliente;
-
-    @NotBlank
-    @Size(max = 20)
-    private String cedula_cliente;
+    private Long idCliente;
 
     @NotBlank
     @Size(max = 20)
-    private String nombre_cliente;
+    private String cedulaCliente;
 
     @NotBlank
     @Size(max = 20)
-    private String apellido_cliente;
+    private String nombreCliente;
+
+    @NotBlank
+    @Size(max = 20)
+    private String apellidoCliente;
 
     @Size(max = 150)
     private String direccion;
@@ -31,5 +30,5 @@ public class ClienteDTO {
     private String telefono;
 
     @Email
-    private String email_cliente;
+    private String emailCliente;
 }

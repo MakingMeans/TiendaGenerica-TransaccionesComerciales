@@ -16,10 +16,10 @@ public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_venta")
-    private Long id_venta;
+    private Long idVenta;
 
     @Column(name = "codigo_venta", nullable = false, unique = true)
-    private Long codigo_venta;
+    private Long codigoVenta;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false)
@@ -30,14 +30,14 @@ public class Venta {
     private Usuario usuario;
 
     @Column(name = "total_venta", nullable = false, precision = 15, scale = 2)
-    private BigDecimal total_venta;
+    private BigDecimal totalVenta;
 
     @Column(name = "total_iva", nullable = false, precision = 15, scale = 2)
-    private BigDecimal total_iva;
+    private BigDecimal totalIva;
 
     @Column(name = "total_con_iva", nullable = false, precision = 15, scale = 2)
-    private BigDecimal total_con_iva;
+    private BigDecimal totalConIva;
 
     @Column(name = "fecha_venta")
-    private LocalDateTime fecha_venta;
+    private LocalDateTime fechaVenta;
 }

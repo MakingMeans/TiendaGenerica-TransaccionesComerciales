@@ -36,7 +36,7 @@ public class ProveedorServiceImpl implements ProveedorService {
     public Proveedor update(Long id, Proveedor proveedor) {
         return repository.findById(id)
                 .map(db -> {
-                    proveedor.setId_proveedor(id);
+                    proveedor.setIdProveedor(id);
                     return repository.save(proveedor);
                 })
                 .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));

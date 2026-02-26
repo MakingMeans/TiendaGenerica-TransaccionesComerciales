@@ -11,25 +11,25 @@ import lombok.Setter;
 @Setter
 public class VentaDTO {
 
-    private Long id_venta;
+    private Long idVenta;
 
     @NotNull
-    private Long codigo_venta;
+    private Long codigoVenta;
 
     @NotNull
-    private Long id_cliente;
+    private Long idCliente;
 
     @NotNull
-    private Long id_usuario;
+    private Long idUsuario;
 
     @NotNull
-    private BigDecimal total_venta;
+    private BigDecimal totalVenta;
 
     @NotNull
-    private BigDecimal total_iva;
+    private BigDecimal totalIva;
 
     @NotNull
-    private BigDecimal total_con_iva;
+    private BigDecimal totalConIva;
 
-    private LocalDateTime fecha_venta;
+    private LocalDateTime fechaVenta;
 }

@@ -26,7 +26,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario update(Long id, Usuario usuario) {
         return repository.findById(id)
                 .map(db -> {
-                    usuario.setId_usuario(id);
+                    usuario.setIdUsuario(id);
                     return repository.save(usuario);
                 })
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));

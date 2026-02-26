@@ -13,19 +13,19 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private Long id_usuario;
+    private Long idUsuario;
 
     @Column(name = "cedula_usuario", nullable = false, unique = true, length = 20)
-    private String cedula_usuario;
+    private String cedulaUsuario;
 
     @Column(name = "nombre_usuario", nullable = false, length = 20)
-    private String nombre_usuario;
+    private String nombreUsuario;
 
     @Column(name = "apellido_usuario", nullable = false, length = 20)
-    private String apellido_usuario;
+    private String apellidoUsuario;
 
     @Column(name = "email_usuario", nullable = false, unique = true, length = 50)
-    private String email_usuario;
+    private String emailUsuario;
 
     @Column(name = "username", nullable = false, unique = true, length = 25)
     private String username;

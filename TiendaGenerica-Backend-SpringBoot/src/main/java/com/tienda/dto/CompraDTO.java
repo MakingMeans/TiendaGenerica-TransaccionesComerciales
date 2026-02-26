@@ -10,17 +10,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CompraDTO {
-
-    private Long id_compra;
-
-    @NotNull
-    private Long id_proveedor;
+    private Long idCompra;
 
     @NotNull
-    private Long id_usuario;
+    private Long idProveedor;
 
     @NotNull
-    private BigDecimal total_compra;
+    private Long idUsuario;
 
-    private LocalDateTime fecha_compra;
+    @NotNull
+    private BigDecimal totalCompra;
+
+    private LocalDateTime fechaCompra;
 }

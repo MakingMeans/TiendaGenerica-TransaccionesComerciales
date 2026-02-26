@@ -10,19 +10,19 @@ import lombok.Setter;
 @Setter
 public class UsuarioDTO {
 
-    private Long id_usuario;
+    private Long idUsuario;
 
     @NotBlank
-    private String cedula_usuario;
+    private String cedulaUsuario;
 
     @NotBlank
-    private String nombre_usuario;
+    private String nombreUsuario;
 
     @NotBlank
-    private String apellido_usuario;
+    private String apellidoUsuario;
 
     @Email
-    private String email_usuario;
+    private String emailUsuario;
 
     @NotBlank
     @Size(max = 25)

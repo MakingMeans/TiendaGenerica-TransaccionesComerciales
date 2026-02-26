@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class ProveedorDTO {
 
-    private Long id_proveedor;
+    private Long idProveedor;
 
     @NotBlank
     @Size(max = 20)
@@ -17,7 +17,7 @@ public class ProveedorDTO {
 
     @NotBlank
     @Size(max = 100)
-    private String nombre_proveedor;
+    private String nombreProveedor;
 
     @Size(max = 150)
     private String direccion;

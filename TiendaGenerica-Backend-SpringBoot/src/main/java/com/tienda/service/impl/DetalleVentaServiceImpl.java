@@ -37,7 +37,7 @@ public class DetalleVentaServiceImpl implements DetalleVentaService {
     public DetalleVenta update(Long id, DetalleVenta detalleVenta) {
         return repository.findById(id)
                 .map(db -> {
-                    detalleVenta.setId_detalle(id);
+                    detalleVenta.setIdDetalle(id);
                     return repository.save(detalleVenta);
                 })
                 .orElseThrow(() -> new RuntimeException("DetalleVenta no encontrado"));

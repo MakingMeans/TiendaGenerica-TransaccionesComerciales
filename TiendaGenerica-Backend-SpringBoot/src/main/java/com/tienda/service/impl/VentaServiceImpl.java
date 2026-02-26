@@ -37,7 +37,7 @@ public class VentaServiceImpl implements VentaService {
     public Venta update(Long id, Venta venta) {
         return repository.findById(id)
                 .map(db -> {
-                    venta.setId_venta(id);
+                    venta.setIdVenta(id);
                     return repository.save(venta);
                 })
                 .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
