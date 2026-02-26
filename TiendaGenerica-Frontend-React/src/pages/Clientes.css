@@ -1,0 +1,80 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  background-color: #f3f4f6;
+  padding: 20px;
+}
+
+/* Barra superior */
+.topbar {
+  background-color: #e5e7eb;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 20px;
+  background-color: #f9fafb;
+  padding: 10px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.tabs span {
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.tabs .active {
+  font-weight: bold;
+  color: black;
+}
+
+/* Formulario */
+.form-container {
+  display: flex;
+  gap: 100px;
+  margin-top: 40px;
+  padding-left: 40px;
+}
+
+.form-left,
+.form-right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-left input,
+.form-right input {
+  width: 220px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Botones */
+.button-group {
+  margin-top: 40px;
+  display: flex;
+  gap: 30px;
+  padding-left: 40px;
+}
+
+.button-group button {
+  padding: 8px 20px;
+  background-color: #9ca3af;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.button-group button:hover {
+  background-color: #6b7280;
+}

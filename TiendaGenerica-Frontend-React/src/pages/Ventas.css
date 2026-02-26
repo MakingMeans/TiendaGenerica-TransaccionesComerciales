@@ -1,0 +1,122 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  background-color: #f3f4f6;
+  padding: 20px;
+}
+
+/* Barra */
+.topbar {
+  background-color: #e5e7eb;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 20px;
+  background-color: #f9fafb;
+  padding: 10px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.tabs span {
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.tabs .active {
+  font-weight: bold;
+  color: black;
+}
+
+/* Cliente */
+.cliente-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.cliente-section input {
+  width: 120px;
+  padding: 5px;
+}
+
+.small-btn {
+  padding: 5px 10px;
+  background-color: #9ca3af;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.small-btn:hover {
+  background-color: #6b7280;
+}
+
+.consec {
+  color: red;
+}
+
+/* Productos */
+.productos-section {
+  margin-top: 30px;
+}
+
+.productos-header {
+  display: grid;
+  grid-template-columns: 150px 100px 200px 100px 120px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.productos-row {
+  display: grid;
+  grid-template-columns: 150px 100px 200px 100px 120px;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.productos-row input {
+  padding: 5px;
+}
+
+/* Totales */
+.totales-section {
+  margin-top: 20px;
+  margin-left: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.totales-section input {
+  width: 150px;
+  padding: 5px;
+}
+
+/* Confirmar */
+.confirmar-container {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.confirm-btn {
+  padding: 8px 25px;
+  background-color: #9ca3af;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background-color: #6b7280;
+}
