@@ -20,7 +20,7 @@
         <spring-cloud.version>2023.0.1</spring-cloud.version>
     </properties>
 
-    <!-- ✅ AQUÍ VA EL BOM DE SPRING CLOUD -->
+    <!-- AQUÍ VA SPRING CLOUD -->
     <dependencyManagement>
         <dependencies>
             <dependency>
