@@ -33,7 +33,7 @@ public class VentaServiceImpl implements VentaService {
         return repository.save(venta);
     }
 
-    @Override
+    /*@Override
     public Venta update(Long id, Venta venta) {
         return repository.findById(id)
                 .map(db -> {
@@ -41,6 +41,16 @@ public class VentaServiceImpl implements VentaService {
                     return repository.save(venta);
                 })
                 .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+    }*/
+    
+    @Override
+    public Venta update(Long id, Venta venta) {
+
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Venta no encontrado");
+        }
+
+        return repository.save(venta);
     }
 
     @Override

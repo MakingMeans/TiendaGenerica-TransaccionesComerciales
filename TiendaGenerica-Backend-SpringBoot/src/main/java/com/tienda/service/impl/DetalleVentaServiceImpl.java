@@ -33,7 +33,7 @@ public class DetalleVentaServiceImpl implements DetalleVentaService {
         return repository.save(detalleVenta);
     }
 
-    @Override
+    /*@Override
     public DetalleVenta update(Long id, DetalleVenta detalleVenta) {
         return repository.findById(id)
                 .map(db -> {
@@ -41,6 +41,16 @@ public class DetalleVentaServiceImpl implements DetalleVentaService {
                     return repository.save(detalleVenta);
                 })
                 .orElseThrow(() -> new RuntimeException("DetalleVenta no encontrado"));
+    }*/
+    
+    @Override
+    public DetalleVenta update(Long id, DetalleVenta detalleVenta) {
+
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("DetalleVenta no encontrado");
+        }
+
+        return repository.save(detalleVenta);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class CompraServiceImpl implements CompraService {
         return repository.save(compra);
     }
 
-    @Override
+    /*@Override
     public Compra update(Long id, Compra compra) {
         return repository.findById(id)
                 .map(db -> {
@@ -41,6 +41,16 @@ public class CompraServiceImpl implements CompraService {
                     return repository.save(compra);
                 })
                 .orElseThrow(() -> new RuntimeException("Compra no encontrada"));
+    }*/
+    
+    @Override
+    public Compra update(Long id, Compra compra) {
+
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Compra no encontrado");
+        }
+
+        return repository.save(compra);
     }
 
     @Override

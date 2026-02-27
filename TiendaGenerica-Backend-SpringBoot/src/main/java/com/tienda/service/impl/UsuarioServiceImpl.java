@@ -23,13 +23,23 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     public Usuario save(Usuario usuario) { return repository.save(usuario); }
 
-    public Usuario update(Long id, Usuario usuario) {
+    /*public Usuario update(Long id, Usuario usuario) {
         return repository.findById(id)
                 .map(db -> {
                     usuario.setIdUsuario(id);
                     return repository.save(usuario);
                 })
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }*/
+    
+    @Override
+    public Usuario update(Long id, Usuario usuario) {
+
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Usuario no encontrado");
+        }
+
+        return repository.save(usuario);
     }
 
     public void delete(Long id) { repository.deleteById(id); }

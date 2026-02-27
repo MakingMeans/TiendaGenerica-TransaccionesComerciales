@@ -32,7 +32,7 @@ public class ProveedorServiceImpl implements ProveedorService {
         return repository.save(proveedor);
     }
 
-    @Override
+    /*@Override
     public Proveedor update(Long id, Proveedor proveedor) {
         return repository.findById(id)
                 .map(db -> {
@@ -40,6 +40,16 @@ public class ProveedorServiceImpl implements ProveedorService {
                     return repository.save(proveedor);
                 })
                 .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+    }*/
+    
+    @Override
+    public Proveedor update(Long id, Proveedor proveedor) {
+
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Proveedor no encontrado");
+        }
+
+        return repository.save(proveedor);
     }
 
     @Override

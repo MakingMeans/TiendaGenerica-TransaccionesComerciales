@@ -33,7 +33,7 @@ public class ProductoServiceImpl implements ProductoService {
         return repository.save(producto);
     }
 
-    @Override
+    /*@Override
     public Producto update(Long id, Producto producto) {
         return repository.findById(id)
                 .map(db -> {
@@ -41,6 +41,16 @@ public class ProductoServiceImpl implements ProductoService {
                     return repository.save(producto);
                 })
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    }*/
+    
+    @Override
+    public Producto update(Long id, Producto producto) {
+
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Producto no encontrado");
+        }
+
+        return repository.save(producto);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class ClienteServiceImpl implements ClienteService {
         return repository.save(cliente);
     }
 
-    @Override
+    /*@Override
     public Cliente update(Long id, Cliente cliente) {
         return repository.findById(id)
                 .map(db -> {
@@ -40,9 +40,9 @@ public class ClienteServiceImpl implements ClienteService {
                     return repository.save(cliente);
                 })
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-    }
+    }*/
     
-    /*
+    
     @Override
     public Cliente update(Long id, Cliente cliente) {
 
@@ -52,7 +52,7 @@ public class ClienteServiceImpl implements ClienteService {
 
         return repository.save(cliente);
     }
-    */
+    
 
     @Override
     public void delete(Long id) {
