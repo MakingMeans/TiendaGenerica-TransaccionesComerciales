@@ -1,4 +1,4 @@
-package com.tienda.authenticationservice.service;
+package com.tienda.authenticationservice.security;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
