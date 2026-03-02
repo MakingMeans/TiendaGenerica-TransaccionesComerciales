@@ -35,3 +35,4 @@ build
 .vscode
 .ncurc.js
 knip.jsonc
+yaml.lock
