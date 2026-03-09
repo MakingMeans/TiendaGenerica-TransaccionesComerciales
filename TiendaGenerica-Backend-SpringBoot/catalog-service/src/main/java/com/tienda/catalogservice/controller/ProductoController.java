@@ -4,6 +4,7 @@ import com.tienda.catalogservice.dto.*;
 import com.tienda.catalogservice.service.ProductoService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +34,14 @@ public class ProductoController {
     @GetMapping("/internal/{id}")
     public ProductoResponseDTO getInternalById(@PathVariable Long id) {
         return service.findById(id);
+    }
+
+    @PutMapping("/internal/{id}/stock")
+    public void incrementarStock(
+            @PathVariable Long id,
+            @RequestParam Integer cantidad) {
+
+        service.incrementarStock(id, cantidad);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','GERENTE')")

@@ -20,4 +20,6 @@ public interface ProductoService {
     void delete(Long id);
 
     void uploadCsv(MultipartFile file);
+
+    void incrementarStock(Long idProducto, Integer cantidad);
 }

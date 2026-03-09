@@ -8,6 +8,7 @@ import com.tienda.catalogservice.service.ProductoService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -37,6 +38,30 @@ public class ProductoServiceImpl implements ProductoService {
     public ProductoResponseDTO findById(Long id) {
         return map(productoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado")));
+    }
+
+    @Override
+    @Transactional
+    public void incrementarStock(Long idProducto, Integer cantidad) {
+
+        Producto producto = productoRepository.findById(idProducto)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        Integer stockActual = producto.getStockActual() == null ? 0 : producto.getStockActual();
+        Integer stockMaximo = producto.getStockMaximo();
+
+        int nuevoStock = stockActual + cantidad;
+
+        if (stockMaximo != null && nuevoStock > stockMaximo) {
+            throw new RuntimeException(
+                    "Stock máximo excedido. Stock actual: " + stockActual +
+                            ", máximo permitido: " + stockMaximo
+            );
+        }
+
+        producto.setStockActual(nuevoStock);
+
+        productoRepository.save(producto);
     }
 
     @Override

@@ -63,6 +63,15 @@ public class BuyServiceImpl implements BuyService {
             throw new IllegalArgumentException("La compra debe tener al menos un detalle");
         }
 
+        dto.getDetalles().forEach(detalle -> {
+
+            productClient.incrementarStock(
+                    detalle.getIdProducto(),
+                    detalle.getCantidad()
+            );
+
+        });
+
         Buy buy = new Buy();
         buy.setNumeroCompra(dto.getNumeroCompra());
         buy.setIdProveedor(dto.getIdProveedor());
