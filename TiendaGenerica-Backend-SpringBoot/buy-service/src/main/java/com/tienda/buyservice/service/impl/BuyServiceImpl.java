@@ -1,6 +1,7 @@
 package com.tienda.buyservice.service.impl;
 
 import com.tienda.buyservice.client.ProductClient;
+import com.tienda.buyservice.client.SupplierClient;
 import com.tienda.buyservice.dto.*;
 import com.tienda.buyservice.entity.*;
 import com.tienda.buyservice.exception.ResourceNotFoundException;
@@ -22,6 +23,8 @@ public class BuyServiceImpl implements BuyService {
     private final BuyRepository buyRepository;
 
     private final ProductClient productClient;
+
+    private final SupplierClient supplierClient;
 
     @Override
     public List<BuyDTO> findAll() {
@@ -71,7 +74,7 @@ public class BuyServiceImpl implements BuyService {
         });
 
         try {
-            productClient.getInternalById(dto.getIdProveedor());
+            supplierClient.getInternalById(dto.getIdProveedor());
         } catch (feign.FeignException.NotFound e) {
             throw new RuntimeException(
                     "Supplier not found: " + dto.getIdProveedor()

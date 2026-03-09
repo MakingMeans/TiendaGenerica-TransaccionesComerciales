@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/foreignsuppliers")
+@RequestMapping("/foreigncatalog")
 @RequiredArgsConstructor
 public class ProductoForeignController {
     private final ProductoService service;
