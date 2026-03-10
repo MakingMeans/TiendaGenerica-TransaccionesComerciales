@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(
         name = "api-gateway",
-        configuration = FeignConfig.class
+        configuration = FeignConfig.class,
+        contextId = "supplierClient"
 )
 public interface SupplierClient {
 

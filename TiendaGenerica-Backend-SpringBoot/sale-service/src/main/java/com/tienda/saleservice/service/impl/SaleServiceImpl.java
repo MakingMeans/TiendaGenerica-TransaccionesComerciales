@@ -1,10 +1,8 @@
 package com.tienda.saleservice.service.impl;
 
 import com.tienda.saleservice.client.CatalogClient;
-import com.tienda.saleservice.dto.PaymentDTO;
-import com.tienda.saleservice.dto.ProductDTO;
-import com.tienda.saleservice.dto.SaleDTO;
-import com.tienda.saleservice.dto.SaleDetailDTO;
+import com.tienda.saleservice.client.CustomerClient;
+import com.tienda.saleservice.dto.*;
 import com.tienda.saleservice.entity.Payment;
 import com.tienda.saleservice.entity.Sale;
 import com.tienda.saleservice.entity.SaleDetail;
@@ -20,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,23 +28,25 @@ public class SaleServiceImpl implements SaleService {
     private final SaleDetailRepository saleDetailRepository;
     private final PaymentRepository paymentRepository;
     private final CatalogClient catalogClient;
+    private final CustomerClient customerClient;
+
+
 
     @Override
     @Transactional
     public SaleDTO createSale(SaleDTO saleDTO) {
 
-        Sale sale = new Sale();
-
-        sale.setNumeroVenta(generateSaleNumber());
-        sale.setIdCliente(saleDTO.getIdCliente());
-        sale.setIdUsuario(saleDTO.getIdUsuario());
-        sale.setEstado("COMPLETADA");
+        try {
+            customerClient.getClientById(saleDTO.getIdCliente());
+        } catch (feign.FeignException.NotFound e) {
+            throw new RuntimeException(
+                    "Customer not found: " + saleDTO.getIdCliente()
+            );
+        }
 
         BigDecimal totalBruto = BigDecimal.ZERO;
+        List<SaleDetail> detalles = new ArrayList<>();
 
-        sale = saleRepository.save(sale);
-
-        List<SaleDetail> detallesGuardados = new ArrayList<>();
 
         for (SaleDetailDTO detailDTO : saleDTO.getDetalles()) {
 
@@ -56,40 +57,61 @@ public class SaleServiceImpl implements SaleService {
             }
 
             if (product.getStockActual() < detailDTO.getCantidad()) {
-                throw new RuntimeException("Stock insuficiente para producto " + product.getNombre());
+                throw new RuntimeException("Stock insuficiente para producto: " + product.getNombre());
             }
 
-            if (product.getPrecioVenta().compareTo(detailDTO.getPrecioUnitario()) != 0) {
-                throw new RuntimeException("El precio no coincide con el catalogo");
-            }
+            BigDecimal precioUnitario = product.getPrecioVenta();
 
-            SaleDetail detail = new SaleDetail();
-
-            detail.setIdVenta(sale.getIdVenta());
-            detail.setIdProducto(detailDTO.getIdProducto());
-            detail.setCantidad(detailDTO.getCantidad());
-            detail.setPrecioUnitario(product.getPrecioVenta());
-
-            BigDecimal total = product.getPrecioVenta()
-                    .multiply(BigDecimal.valueOf(detailDTO.getCantidad()));
-
-            detail.setTotal(total);
+            BigDecimal total = precioUnitario.multiply(
+                    BigDecimal.valueOf(detailDTO.getCantidad())
+            );
 
             totalBruto = totalBruto.add(total);
 
-            saleDetailRepository.save(detail);
+            SaleDetail detail = new SaleDetail();
+            detail.setIdProducto(detailDTO.getIdProducto());
+            detail.setCantidad(detailDTO.getCantidad());
+            detail.setPrecioUnitario(precioUnitario);
+            detail.setTotal(total);
+
+            detalles.add(detail);
+
+
+            detailDTO.setPrecioUnitario(precioUnitario);
+            detailDTO.setTotal(total);
         }
 
-        BigDecimal totalIva = totalBruto.multiply(new BigDecimal("0.12"));
+
+        BigDecimal totalIva = totalBruto.multiply(new BigDecimal("0.19"));
         BigDecimal totalFinal = totalBruto.add(totalIva);
 
+
+        Sale sale = new Sale();
+
+        sale.setNumeroVenta(generateSaleNumber());
+        sale.setIdCliente(saleDTO.getIdCliente());
+        sale.setIdUsuario(saleDTO.getIdUsuario());
+        sale.setEstado("COMPLETADA");
         sale.setTotalBruto(totalBruto);
         sale.setTotalIva(totalIva);
         sale.setTotalFinal(totalFinal);
 
-        saleRepository.save(sale);
+        sale = saleRepository.save(sale);
 
-        List<Payment> pagosGuardados = new ArrayList<>();
+
+        for (SaleDetail detail : detalles) {
+
+            detail.setIdVenta(sale.getIdVenta());
+
+            saleDetailRepository.save(detail);
+
+
+            catalogClient.updateStock(
+                    detail.getIdProducto(),
+                    Integer.valueOf("-"+detail.getCantidad())
+            );
+        }
+
 
         if (saleDTO.getPagos() != null) {
 
@@ -99,12 +121,12 @@ public class SaleServiceImpl implements SaleService {
 
                 payment.setIdVenta(sale.getIdVenta());
                 payment.setIdMetodo(paymentDTO.getIdMetodo());
-
                 payment.setMonto(totalFinal);
 
-                pagosGuardados.add(paymentRepository.save(payment));
+                paymentRepository.save(payment);
             }
         }
+
 
         saleDTO.setIdVenta(sale.getIdVenta());
         saleDTO.setNumeroVenta(sale.getNumeroVenta());
@@ -237,9 +259,20 @@ public class SaleServiceImpl implements SaleService {
 
     private String generateSaleNumber() {
 
-        Long count = saleRepository.count() + 1;
+        Optional<Sale> lastSale = saleRepository.findTopByOrderByIdVentaDesc();
 
-        return String.format("VEN-%06d", count);
+        int nextNumber = 1;
+
+        if (lastSale.isPresent()) {
+
+            String lastNumero = lastSale.get().getNumeroVenta();
+
+            String numberPart = lastNumero.substring(5);
+
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        return String.format("COMP-%06d", nextNumber);
     }
 
 }

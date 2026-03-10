@@ -101,7 +101,7 @@ public class BuyServiceImpl implements BuyService {
         Buy buy = new Buy();
         buy.setNumeroCompra(generarNumeroCompra());
         buy.setIdProveedor(dto.getIdProveedor());
-        buy.setEstado(dto.getEstado());
+        buy.setEstado("CREADA");
 
         List<BuyDetails> details = dto.getDetalles()
                 .stream()

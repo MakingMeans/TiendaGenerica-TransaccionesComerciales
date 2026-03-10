@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(
         name = "api-gateway",
-        configuration = FeignConfig.class
+        configuration = FeignConfig.class,
+        contextId = "productClient"
 )
 public interface ProductClient {
 
