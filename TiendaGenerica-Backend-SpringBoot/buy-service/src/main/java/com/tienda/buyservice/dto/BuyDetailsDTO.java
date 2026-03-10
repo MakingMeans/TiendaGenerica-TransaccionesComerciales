@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 public class BuyDetailsDTO {
 
-    private Long idProducto;
+    private String codigoProducto;
     private Integer cantidad;
     private BigDecimal precioUnitario;
     private BigDecimal total;

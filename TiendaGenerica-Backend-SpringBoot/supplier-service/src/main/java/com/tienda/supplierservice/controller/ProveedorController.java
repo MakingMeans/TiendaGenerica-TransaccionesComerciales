@@ -54,7 +54,7 @@ public class ProveedorController {
     }
 
     @GetMapping("/active-nits")
-    public List<String> getActiveNits() {
+    public List<ProveedorNitNameDTO> getActiveNits() {
         return service.findActiveNits();
     }
 }
