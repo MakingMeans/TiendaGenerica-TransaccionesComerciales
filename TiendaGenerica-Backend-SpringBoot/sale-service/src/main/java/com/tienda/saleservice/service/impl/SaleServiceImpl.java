@@ -256,6 +256,77 @@ public class SaleServiceImpl implements SaleService {
         return dto;
     }
 
+    @Override
+    public List<SaleDTO> getSalesByClient(Long idCliente) {
+
+
+        try {
+            customerClient.getClientById(idCliente);
+        } catch (feign.FeignException.NotFound e) {
+            throw new RuntimeException(
+                    "Customer not found: " + idCliente
+            );
+        }
+
+
+        List<Sale> sales = saleRepository.findByIdCliente(idCliente);
+
+        List<SaleDTO> salesDTO = new ArrayList<>();
+
+        for(Sale sale : sales){
+
+            SaleDTO saleDTO = new SaleDTO();
+
+            saleDTO.setIdVenta(sale.getIdVenta());
+            saleDTO.setNumeroVenta(sale.getNumeroVenta());
+            saleDTO.setIdCliente(sale.getIdCliente());
+            saleDTO.setIdUsuario(sale.getIdUsuario());
+            saleDTO.setFecha(sale.getFecha());
+            saleDTO.setTotalBruto(sale.getTotalBruto());
+            saleDTO.setTotalIva(sale.getTotalIva());
+            saleDTO.setTotalFinal(sale.getTotalFinal());
+            saleDTO.setEstado(sale.getEstado());
+
+            List<SaleDetail> detalles = saleDetailRepository.findByIdVenta(sale.getIdVenta());
+
+            List<SaleDetailDTO> detallesDTO = new ArrayList<>();
+
+            for(SaleDetail detail : detalles){
+
+                SaleDetailDTO detailDTO = new SaleDetailDTO();
+
+                detailDTO.setIdProducto(detail.getIdProducto());
+                detailDTO.setCantidad(detail.getCantidad());
+                detailDTO.setPrecioUnitario(detail.getPrecioUnitario());
+                detailDTO.setTotal(detail.getTotal());
+
+                detallesDTO.add(detailDTO);
+            }
+
+            saleDTO.setDetalles(detallesDTO);
+
+            List<Payment> pagos = paymentRepository.findByIdVenta(sale.getIdVenta());
+
+            List<PaymentDTO> pagosDTO = new ArrayList<>();
+
+            for(Payment payment : pagos){
+
+                PaymentDTO paymentDTO = new PaymentDTO();
+
+                paymentDTO.setIdMetodo(payment.getIdMetodo());
+                paymentDTO.setMonto(payment.getMonto());
+
+                pagosDTO.add(paymentDTO);
+            }
+
+            saleDTO.setPagos(pagosDTO);
+
+            salesDTO.add(saleDTO);
+        }
+
+        return salesDTO;
+    }
+
 
     private String generateSaleNumber() {
 

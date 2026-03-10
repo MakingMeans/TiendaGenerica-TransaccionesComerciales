@@ -36,4 +36,9 @@ public class SaleController {
         saleService.deleteSale(id);
     }
 
+    @GetMapping("/report/client/{idCliente}")
+    public List<SaleDTO> getSalesByClient(@PathVariable Long idCliente){
+        return saleService.getSalesByClient(idCliente);
+    }
+
 }

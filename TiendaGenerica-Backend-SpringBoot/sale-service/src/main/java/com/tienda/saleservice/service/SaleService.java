@@ -1,6 +1,7 @@
 package com.tienda.saleservice.service;
 
 import com.tienda.saleservice.dto.SaleDTO;
+import com.tienda.saleservice.entity.Sale;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface SaleService {
 
     void deleteSale(Long id);
 
+    List<SaleDTO> getSalesByClient(Long idCliente);
 }

@@ -20,5 +20,5 @@ public interface ProveedorService {
 
     void deactivate(Long id);
 
-    List<String> findActiveNits();
+    List<ProveedorNitNameDTO> findActiveNits();
 }
