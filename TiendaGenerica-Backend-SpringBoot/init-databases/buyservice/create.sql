@@ -10,7 +10,7 @@ CREATE TABLE compras (
 CREATE TABLE detalle_compras (
     id_detalle_compra BIGINT AUTO_INCREMENT PRIMARY KEY,
     id_compra BIGINT NOT NULL,
-    id_producto BIGINT NOT NULL,
+    codigo_producto VARCHAR(10) NOT NULL,
     cantidad INT NOT NULL,
     precio_unitario DECIMAL(12,2) NOT NULL,
     total DECIMAL(14,2),

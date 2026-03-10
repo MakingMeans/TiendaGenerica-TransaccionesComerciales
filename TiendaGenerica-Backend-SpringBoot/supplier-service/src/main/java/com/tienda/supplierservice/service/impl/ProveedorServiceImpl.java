@@ -81,10 +81,10 @@ public class ProveedorServiceImpl implements ProveedorService {
     }
 
     @Override
-    public List<String> findActiveNits() {
+    public List<ProveedorNitNameDTO> findActiveNits() {
         return repository.findByActivoTrue()
                 .stream()
-                .map(Proveedor::getNit)
+                .map(p -> new ProveedorNitNameDTO(p.getIdProveedor(), p.getNit(), p.getNombre()))
                 .toList();
     }
 

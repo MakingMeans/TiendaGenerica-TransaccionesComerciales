@@ -23,8 +23,8 @@ public class BuyDetails {
     @JoinColumn(name = "id_compra")
     private Buy compra;
 
-    @Column(name = "id_producto", nullable = false)
-    private Long idProducto;
+    @Column(name = "codigo_producto", nullable = false)
+    private String codigoProducto;
 
     @Column(name = "cantidad")
     private Integer cantidad;

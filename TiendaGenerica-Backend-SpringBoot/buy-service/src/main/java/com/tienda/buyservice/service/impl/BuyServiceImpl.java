@@ -69,10 +69,10 @@ public class BuyServiceImpl implements BuyService {
         
         dto.getDetalles().forEach(detail -> {
             try {
-                productClient.getProductById(detail.getIdProducto());
+                productClient.getProductByCodigo(detail.getCodigoProducto());
             } catch (feign.FeignException.NotFound e) {
                 throw new RuntimeException(
-                        "Product not found: " + detail.getIdProducto()
+                        "Product not found: " + detail.getCodigoProducto()
                 );
             }
         });
@@ -92,7 +92,7 @@ public class BuyServiceImpl implements BuyService {
         dto.getDetalles().forEach(detalle -> {
 
             productClient.incrementarStock(
-                    detalle.getIdProducto(),
+                    detalle.getCodigoProducto(),
                     detalle.getCantidad()
             );
 
@@ -109,7 +109,7 @@ public class BuyServiceImpl implements BuyService {
 
                     BuyDetails detail = new BuyDetails();
                     detail.setCompra(buy);
-                    detail.setIdProducto(d.getIdProducto());
+                    detail.setCodigoProducto(d.getCodigoProducto());
                     detail.setCantidad(d.getCantidad());
                     detail.setPrecioUnitario(d.getPrecioUnitario());
 
@@ -145,7 +145,7 @@ public class BuyServiceImpl implements BuyService {
         List<BuyDetailsDTO> detalles = compra.getDetalles()
                 .stream()
                 .map(d -> new BuyDetailsDTO(
-                        d.getIdProducto(),
+                        d.getCodigoProducto(),
                         d.getCantidad(),
                         d.getPrecioUnitario(),
                         d.getTotal()

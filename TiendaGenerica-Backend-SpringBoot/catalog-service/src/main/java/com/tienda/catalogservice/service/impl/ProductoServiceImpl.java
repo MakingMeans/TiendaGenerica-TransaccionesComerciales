@@ -99,9 +99,9 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     @Transactional
-    public void incrementarStock(Long idProducto, Integer cantidad) {
+    public void incrementarStock(String codigoProducto, Integer cantidad) {
 
-        Producto producto = productoRepository.findById(idProducto)
+        Producto producto = productoRepository.findByCodigo(codigoProducto)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
         Integer stockActual = producto.getStockActual() == null ? 0 : producto.getStockActual();
@@ -157,6 +157,14 @@ public class ProductoServiceImpl implements ProductoService {
                 p.getStockActual(),
                 p.getActivo()
         );
+    }
+
+    @Override
+    public ProductoResponseDTO findByCodigo(String codigo) {
+        Producto product = productoRepository.findByCodigo(codigo)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        return map(product);
     }
 
     @Override

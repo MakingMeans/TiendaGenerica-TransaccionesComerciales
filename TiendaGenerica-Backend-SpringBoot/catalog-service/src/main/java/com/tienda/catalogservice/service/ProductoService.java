@@ -20,9 +20,11 @@ public interface ProductoService {
 
     void deactivate(Long id);
 
+    ProductoResponseDTO findByCodigo(String codigo);
+
     void uploadCsv(MultipartFile file);
 
-    void incrementarStock(Long idProducto, Integer cantidad);
+    void incrementarStock(String codigoProducto, Integer cantidad);
 
     void updateStock(Long idProducto, Integer cantidad);
 }

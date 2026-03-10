@@ -20,12 +20,17 @@ public class ProductoForeignController {
         return service.findById(id);
     }
 
-    @PutMapping("/{id}/stock")
+    @PutMapping("/codigo/{codigo}/stock")
     public void incrementarStock(
-            @PathVariable Long id,
+            @PathVariable String codigo,
             @RequestParam Integer cantidad) {
 
-        service.incrementarStock(id, cantidad);
+        service.incrementarStock(codigo, cantidad);
+    }
+
+    @GetMapping("/codigo/{codigo}")
+    public ProductoResponseDTO getInternalByCodigo(@PathVariable String codigo) {
+        return service.findByCodigo(codigo);
     }
 
     @PatchMapping("/{id}/stock")
