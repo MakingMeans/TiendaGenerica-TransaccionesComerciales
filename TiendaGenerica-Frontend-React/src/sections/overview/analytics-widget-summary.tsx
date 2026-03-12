@@ -1,6 +1,5 @@
 import type { CardProps } from '@mui/material/Card';
 import type { PaletteColorKey } from 'src/theme/core';
-import type { ChartOptions } from 'src/components/chart';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -8,9 +7,8 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
 
-import { fNumber, fPercent, fShortenNumber } from 'src/utils/format-number';
+import { fNumber, fShortenNumber } from 'src/utils/format-number';
 
-import { Iconify } from 'src/components/iconify';
 import { SvgColor } from 'src/components/svg-color';
 import { Chart, useChart } from 'src/components/chart';
 
@@ -19,14 +17,8 @@ import { Chart, useChart } from 'src/components/chart';
 type Props = CardProps & {
   title: string;
   total: number;
-  percent: number;
   color?: PaletteColorKey;
   icon: React.ReactNode;
-  chart: {
-    series: number[];
-    categories: string[];
-    options?: ChartOptions;
-  };
 };
 
 export function AnalyticsWidgetSummary({
@@ -34,8 +26,6 @@ export function AnalyticsWidgetSummary({
   icon,
   title,
   total,
-  chart,
-  percent,
   color = 'primary',
   ...other
 }: Props) {
@@ -46,7 +36,7 @@ export function AnalyticsWidgetSummary({
   const chartOptions = useChart({
     chart: { sparkline: { enabled: true } },
     colors: chartColors,
-    xaxis: { categories: chart.categories },
+
     grid: {
       padding: {
         top: 6,
@@ -61,7 +51,7 @@ export function AnalyticsWidgetSummary({
     markers: {
       strokeWidth: 0,
     },
-    ...chart.options,
+
   });
 
   const renderTrending = () => (
@@ -74,13 +64,7 @@ export function AnalyticsWidgetSummary({
         position: 'absolute',
         alignItems: 'center',
       }}
-    >
-      <Iconify width={20} icon={percent < 0 ? 'eva:trending-down-fill' : 'eva:trending-up-fill'} />
-      <Box component="span" sx={{ typography: 'subtitle2' }}>
-        {percent > 0 && '+'}
-        {fPercent(percent)}
-      </Box>
-    </Box>
+     />
   );
 
   return (
@@ -118,7 +102,7 @@ export function AnalyticsWidgetSummary({
 
         <Chart
           type="line"
-          series={[{ data: chart.series }]}
+
           options={chartOptions}
           sx={{ width: 84, height: 56 }}
         />

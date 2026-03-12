@@ -16,7 +16,7 @@ import {
 export const _myAccount = {
   displayName: 'Usuario Demo',
   email: 'demo@correo.com',
-  photoURL: '/assets/images/avatar/avatar-25.webp',
+  photoURL: '/assets/images/avatar/avatar-1.webp',
 };
 
 // ----------------------------------------------------------------------

@@ -34,6 +34,16 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
   const pathname = usePathname();
   const { logoutUser } = useAuth();
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(null);
+  
+  const getUserFromToken = () => {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload;
+  };
+
+  const user = getUserFromToken();
 
   const handleOpenPopover = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     setOpenPopover(event.currentTarget);
@@ -71,7 +81,7 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
         }}
         {...other}
       >
-        <Avatar src={_myAccount.photoURL} alt={_myAccount.displayName} sx={{ width: 1, height: 1 }}>
+        <Avatar src={_myAccount.photoURL} sx={{ width: 1, height: 1 }}>
           {_myAccount.displayName.charAt(0).toUpperCase()}
         </Avatar>
       </IconButton>
@@ -88,15 +98,6 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
           },
         }}
       >
-        <Box sx={{ p: 2, pb: 1.5 }}>
-          <Typography variant="subtitle2" noWrap>
-            {_myAccount?.displayName}
-          </Typography>
-
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {_myAccount?.email}
-          </Typography>
-        </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
