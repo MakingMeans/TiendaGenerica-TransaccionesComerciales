@@ -13,6 +13,7 @@
     <artifactId>eureka-server</artifactId>
     <name>eureka-server</name>
     <description>Eureka Service Registry</description>
+    <packaging>war</packaging>
 
     <dependencies>
         <!-- Spring Boot Web -->
