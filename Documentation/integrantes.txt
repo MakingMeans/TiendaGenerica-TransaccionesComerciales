@@ -19,6 +19,16 @@ INTEGRANTES Y ROLES
      (gestión de productos, control de stock, carga CSV)
    - Desarrollo del microservicio supplier-service
      (gestión de proveedores)
+   - Implementación de balanceo de carga mediante
+     múltiples instancias de cada microservicio
+   - Integración completa con Docker Compose para
+     orquestación del sistema distribuido
+   - Configuración de API Gateway con descubrimiento
+     dinámico usando Eureka
+   - Implementación de health checks y endpoints
+     internos para monitoreo de servicios
+   - Configuración de nginx como gateway externo
+     para centralizar el acceso al backend
    - Corrección de bugs transversales al backend
    - Coordinación del equipo en la integración de ramas
 
@@ -39,11 +49,17 @@ INTEGRANTES Y ROLES
    - Desarrollo del microservicio sale-service
      (registro de ventas, cálculo de IVA, métodos
      de pago, descuento de stock)
+   - Integración de persistencia con MySQL en entorno
+     Dockerizado
+   - Validación de integridad de datos entre servicios
+     (consistencia de stock, relaciones entre entidades)
+   - Pruebas de endpoints mediante Postman para
+     verificación de flujos completos
    - Manejo y corrección de bugs relacionados con
      persistencia y comunicación entre servicios
 
 3. Jorge Orlando Jaramillo Nieves
-   Rol principal: Frontend
+   Rol principal: Frontend - QA Tester
 
    Responsabilidades:
    - Diseño de mockups y flujo de pantallas de la
@@ -56,6 +72,16 @@ INTEGRANTES Y ROLES
    - Conexión completa del frontend con el backend
      usando las colecciones de Postman como referencia
      para consumir cada endpoint del API Gateway
+   - Integración del frontend con el API Gateway
+     centralizado (http://localhost:8080)
+   - Implementación de autenticación con JWT
+     (login, manejo de token en frontend)
+   - Corrección del flujo de autenticación alineando
+     el payload con el backend (username/password)
+   - Centralización de llamadas HTTP usando un
+     cliente Axios compartido
+   - Integración completa de todos los módulos
+     (clientes, productos, proveedores, compras, ventas
    - Identificación y reporte de bugs encontrados
      durante la integración frontend-backend
    - Detección de inconsistencias en el comportamiento
