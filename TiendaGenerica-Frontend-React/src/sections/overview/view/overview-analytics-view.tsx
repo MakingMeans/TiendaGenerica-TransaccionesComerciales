@@ -1,155 +1,133 @@
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { useState, useEffect } from "react";
 
-import { DashboardContent } from 'src/layouts/dashboard';
-import { _posts, _tasks, _traffic, _timeline } from 'src/_mock';
+import Grid from "@mui/material/Grid";
 
-import { AnalyticsNews } from '../analytics-news';
-import { AnalyticsTasks } from '../analytics-tasks';
-import { AnalyticsCurrentVisits } from '../analytics-current-visits';
-import { AnalyticsOrderTimeline } from '../analytics-order-timeline';
-import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
-import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
-import { AnalyticsTrafficBySite } from '../analytics-traffic-by-site';
-import { AnalyticsCurrentSubject } from '../analytics-current-subject';
-import { AnalyticsConversionRates } from '../analytics-conversion-rates';
+import { getBuys } from "src/modules/buy/buy.service";
+import { DashboardContent } from "src/layouts/dashboard";
+import { getSales } from "src/modules/sales/sales.service";
+import { getProducts } from "src/modules/catalog/catalog.service";
+import { getActiveClients } from "src/modules/clients/clients.service";
+import { getActiveProviders } from "src/modules/suppliers/suppliers.service";
 
-// ----------------------------------------------------------------------
+import { AnalyticsNews, AnalyticsNews1 } from "../analytics-news";
+import { AnalyticsWidgetSummary } from "../analytics-widget-summary";
 
 export function OverviewAnalyticsView() {
+  const [salesTotal, setSalesTotal] = useState(0);
+  const [clients, setClients] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
+  const [suppliers, setSuppliers] = useState<any[]>([]);
+  const [buysTotal, setBuysTotal] = useState(0);
+
+  useEffect(() => {
+    loadDashboard();
+  }, []);
+
+  const loadDashboard = async () => {
+    const sales = await getSales();
+    const activeClients = await getActiveClients();
+    const catalog = await getProducts();
+    const activeSuppliers = await getActiveProviders();
+    const buys = await getBuys();
+
+    const totalVentas = sales.reduce(
+      (acc: number, sale: any) => acc + sale.totalFinal,
+      0
+    );
+
+    const totalCompras = buys.reduce(
+      (acc: number, buy: any) => acc + buy.total,
+      0
+    );
+
+    const activeProducts = catalog.filter((p: any) => p.activo);
+
+    setSalesTotal(totalVentas);
+    setClients(activeClients);
+    setProducts(activeProducts);
+    setSuppliers(activeSuppliers);
+    setBuysTotal(totalCompras);
+  };
+
   return (
-    <DashboardContent maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
-        Hi, Welcome back 👋
-      </Typography>
-
+    <DashboardContent>
       <Grid container spacing={3}>
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <AnalyticsWidgetSummary
-            title="Weekly sales"
-            percent={2.6}
-            total={714000}
-            icon={<img alt="Weekly sales" src="/assets/icons/glass/ic-glass-bag.svg" />}
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [22, 8, 35, 50, 82, 84, 77, 12],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <AnalyticsWidgetSummary
-            title="New users"
-            percent={-0.1}
-            total={1352831}
-            color="secondary"
-            icon={<img alt="New users" src="/assets/icons/glass/ic-glass-users.svg" />}
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [56, 47, 40, 62, 73, 30, 23, 54],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <AnalyticsWidgetSummary
-            title="Purchase orders"
-            percent={2.8}
-            total={1723315}
-            color="warning"
-            icon={<img alt="Purchase orders" src="/assets/icons/glass/ic-glass-buy.svg" />}
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [40, 70, 50, 28, 70, 75, 7, 64],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <AnalyticsWidgetSummary
-            title="Messages"
-            percent={3.6}
-            total={234}
-            color="error"
-            icon={<img alt="Messages" src="/assets/icons/glass/ic-glass-message.svg" />}
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [56, 30, 23, 54, 47, 40, 62, 73],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <AnalyticsCurrentVisits
-            title="Current visits"
-            chart={{
-              series: [
-                { label: 'America', value: 3500 },
-                { label: 'Asia', value: 2500 },
-                { label: 'Europe', value: 1500 },
-                { label: 'Africa', value: 500 },
-              ],
-            }}
-          />
-        </Grid>
-
+        
+        {/* Ventas totales */}
         <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AnalyticsWebsiteVisits
-            title="Website visits"
-            subheader="(+43%) than last year"
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-              series: [
-                { name: 'Team A', data: [43, 33, 22, 37, 67, 68, 37, 24, 55] },
-                { name: 'Team B', data: [51, 70, 47, 67, 40, 37, 24, 70, 24] },
-              ],
-            }}
+            <AnalyticsWidgetSummary
+    title="Ventas Totales"
+    total={salesTotal}
+    icon={<img alt="Purchase orders" src="/assets/icons/glass/ic-glass-buy.svg" />}
+    
+  />
+        </Grid>
+
+        {/* Clientes activos */}
+        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+          <AnalyticsWidgetSummary
+  title="Clientes Activos"
+  total={clients.length}
+  icon={<img alt="New users" src="/assets/icons/glass/ic-glass-users.svg" />}
+  
+/>
+        </Grid>
+
+        {/* Productos activos */}
+        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+          <AnalyticsWidgetSummary
+            title="Productos Activos"
+            total={products.length}
+  icon={<img alt="Weekly sales" src="/assets/icons/glass/ic-glass-bag.svg" />}
           />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AnalyticsConversionRates
-            title="Conversion rates"
-            subheader="(+43%) than last year"
-            chart={{
-              categories: ['Italy', 'Japan', 'China', 'Canada', 'France'],
-              series: [
-                { name: '2022', data: [44, 55, 41, 64, 22] },
-                { name: '2023', data: [53, 32, 33, 52, 13] },
-              ],
-            }}
+        {/* Proveedores activos */}
+        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+          <AnalyticsWidgetSummary
+            title="Proveedores Activos"
+            total={suppliers.length}
+  icon={<img alt="New users" src="/assets/icons/glass/ic-glass-users.svg" />}
+  
           />
         </Grid>
 
+        {/* Proveedores activos */}
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <AnalyticsCurrentSubject
-            title="Current subject"
-            chart={{
-              categories: ['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math'],
-              series: [
-                { name: 'Series 1', data: [80, 50, 30, 40, 100, 20] },
-                { name: 'Series 2', data: [20, 30, 40, 80, 20, 80] },
-                { name: 'Series 3', data: [44, 76, 78, 13, 43, 10] },
-              ],
-            }}
+          <AnalyticsWidgetSummary
+            title="Total compras"
+            total={buysTotal}
+  icon={<img alt="New users" src="/assets/icons/glass/ic-glass-users.svg" />}
+  
           />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AnalyticsNews title="News" list={_posts.slice(0, 5)} />
+        {/* Lista de clientes activos */}
+        <Grid size={{ xs: 12, md: 6 }}>
+          <AnalyticsNews
+            title="Clientes Activos"
+            list={clients.slice(0, 5).map((c) => ({
+  id: String(c.idCliente),
+  title: `${c.cedula} - ${c.nombre} ${c.apellido}`,
+  description: "Cliente activo",
+  coverUrl: "/assets/images/avatar/avatar-1.webp",
+}))}
+          />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <AnalyticsOrderTimeline title="Order timeline" list={_timeline} />
+        {/* Catálogo activo */}
+        <Grid size={{ xs: 12, md: 6 }}>
+          <AnalyticsNews1
+            title="Catálogo Activo"
+            list={products.slice(0, 5).map((p) => ({
+  id: String(p.codigo),
+  title: `${p.codigo} - ${p.nombre}`,
+  description: "Producto disponible",
+  coverUrl: "/assets/images/product/product-1.webp",
+}))}
+          />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <AnalyticsTrafficBySite title="Traffic by site" list={_traffic} />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AnalyticsTasks title="Tasks" list={_tasks} />
-        </Grid>
       </Grid>
     </DashboardContent>
   );

@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
 import ListItemText from '@mui/material/ListItemText';
 
-import { fToNow } from 'src/utils/format-time';
+import { RouterLink } from "src/routes/components";
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
@@ -24,7 +24,6 @@ type Props = CardProps & {
     title: string;
     coverUrl: string;
     description: string;
-    postedAt: string | number | null;
   }[];
 };
 
@@ -41,15 +40,57 @@ export function AnalyticsNews({ title, subheader, list, sx, ...other }: Props) {
         </Box>
       </Scrollbar>
 
-      <Box sx={{ p: 2, textAlign: 'right' }}>
-        <Button
-          size="small"
-          color="inherit"
-          endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
-        >
-          View all
-        </Button>
-      </Box>
+      <Box sx={{ p: 2, textAlign: "right" }}>
+  <Button
+    component={RouterLink}
+    href="/client"
+    size="small"
+    color="inherit"
+    endIcon={
+      <Iconify
+        icon="eva:arrow-ios-forward-fill"
+        width={18}
+        sx={{ ml: -0.5 }}
+      />
+    }
+  >
+    View all
+  </Button>
+</Box>
+    </Card>
+  );
+}
+
+export function AnalyticsNews1({ title, subheader, list, sx, ...other }: Props) {
+  return (
+    <Card sx={sx} {...other}>
+      <CardHeader title={title} subheader={subheader} sx={{ mb: 1 }} />
+
+      <Scrollbar sx={{ minHeight: 405 }}>
+        <Box sx={{ minWidth: 640 }}>
+          {list.map((item) => (
+            <Item key={item.id} item={item} />
+          ))}
+        </Box>
+      </Scrollbar>
+
+      <Box sx={{ p: 2, textAlign: "right" }}>
+  <Button
+    component={RouterLink}
+    href="/catalog"
+    size="small"
+    color="inherit"
+    endIcon={
+      <Iconify
+        icon="eva:arrow-ios-forward-fill"
+        width={18}
+        sx={{ ml: -0.5 }}
+      />
+    }
+  >
+    View all
+  </Button>
+</Box>
     </Card>
   );
 }
@@ -95,9 +136,7 @@ function Item({ item, sx, ...other }: ItemProps) {
         }}
       />
 
-      <Box sx={{ flexShrink: 0, typography: 'caption', color: 'text.disabled' }}>
-        {fToNow(item.postedAt)}
-      </Box>
+      <Box sx={{ flexShrink: 0, typography: 'caption', color: 'text.disabled' }} />
     </Box>
   );
 }
