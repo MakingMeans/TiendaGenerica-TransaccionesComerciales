@@ -1,4 +1,4 @@
-# TiendaGenerica-TransaccionesComerciales
+# TiendaGenerica-Microservicios
 
 Sistema web para la gestión de transacciones comerciales de una tienda desarrollado con una **arquitectura de microservicios** utilizando **Spring Boot + Spring Cloud + React + MySQL**.
 
@@ -71,7 +71,7 @@ Control de versiones:
 # Estructura del Proyecto
 
 ```
-TiendaGenerica-TransaccionesComerciales
+TiendaGenerica-Microservicios
 │
 ├── TiendaGenerica-Backend-SpringBoot
 │   ├── api-gateway
@@ -83,13 +83,13 @@ TiendaGenerica-TransaccionesComerciales
 │   ├── sale-service
 │   ├── supplier-service
 │   ├── init-databases
-│   └── docker-compose.yml
+│   ├── docker-compose.yml
+│   └── deploy-jars.bat
 │
 ├── TiendaGenerica-Frontend-React
 │
-├── start_system.bat
-├── stop_system.bat
-└── setup_env.bat
+├── docker-compose.yml
+└── start-services.bat
 ```
 
 ---
@@ -218,37 +218,28 @@ git --version
 ## 1 Clonar repositorio
 
 ```
-git clone https://github.com/MakingMeans/TiendaGenerica-TransaccionesComerciales
-cd TiendaGenerica-TransaccionesComerciales
+git clone https://github.com/MakingMeans/TiendaGenerica-Microservicios
+cd TiendaGenerica-Microservicios
 ```
 
 ---
 
 ## 2 Iniciar el sistema
 
-Ejecutar:
+Ejecutar este comando en la carpeta principal del proyecto:
 
 ```
-start_system.bat
+docker-compose up --build
 ```
-
-Este script realiza automáticamente:
-
-1. Levantar la base de datos con Docker
-2. Iniciar Eureka Server
-3. Iniciar API Gateway
-4. Iniciar todos los microservicios
-5. Iniciar el frontend React
-6. Abrir el navegador automáticamente
 
 ---
 
-# Acceso al sistema
+# 3 Acceso al sistema
 
 Frontend:
 
 ```
-http://localhost:3039
+http://localhost:3000
 ```
 
 Eureka Dashboard:
@@ -265,12 +256,17 @@ http://localhost:8080
 
 ---
 
-# Apagar el sistema
+# 4 Apagar el sistema
 
-Ejecutar:
+Ejecutar este comando en la carpeta principal del proyecto:
 
 ```
-stop_system.bat
+docker-compose down -v
+```
+
+Tambien es posible manejar toda la ejecucion de forma sencilla ejecutando:
+```
+start-services.bat
 ```
 
 Esto detendrá:

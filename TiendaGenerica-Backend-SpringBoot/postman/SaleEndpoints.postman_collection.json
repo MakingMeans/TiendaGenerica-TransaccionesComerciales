@@ -1,11 +1,11 @@
 {
   "info": {
-    "_postman_id": "09fc3acb-ca23-4d70-89f0-55f4417ba108",
+    "_postman_id": "6b247e18-4381-43e3-bb06-574dc7aef24e",
     "name": "SaleEndpoints",
     "description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "34991936",
-    "_collection_link": "https://go.postman.co/collection/34991936-09fc3acb-ca23-4d70-89f0-55f4417ba108?source=collection_link"
+    "_exporter_id": "50182838",
+    "_collection_link": "https://go.postman.co/collection/50182838-6b247e18-4381-43e3-bb06-574dc7aef24e?source=collection_link"
   },
   "item": [
     {
@@ -31,7 +31,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzczMDkwMDUxLCJleHAiOjE3NzMwOTM2NTF9.o1g5GkWHx9lpBNvWWb4cHAJZh36Zbn-wdw2HRSoFFgs",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NzcwMDQ1MjUsImV4cCI6MTc3NzAwODEyNX0.ykxgrFiiMlYcW2cekwChektsajOPR7xzMz2mgb6bRmw",
               "type": "string"
             }
           ]
@@ -72,30 +72,28 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NzcwMDQ1MjUsImV4cCI6MTc3NzAwODEyNX0.ykxgrFiiMlYcW2cekwChektsajOPR7xzMz2mgb6bRmw",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
-          "raw": "{{base_url}}/info?id=1",
+          "raw": "http://localhost:8080/sales/1",
+          "protocol": "http",
           "host": [
-            "{{base_url}}"
+            "localhost"
           ],
+          "port": "8080",
           "path": [
-            "info"
-          ],
-          "query": [
-            {
-              "key": "id",
-              "value": "1"
-            }
+            "sales",
+            "1"
           ]
         },
         "description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -121,30 +119,30 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NzcwMDQ1MjUsImV4cCI6MTc3NzAwODEyNX0.ykxgrFiiMlYcW2cekwChektsajOPR7xzMz2mgb6bRmw",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
-          "raw": "{{base_url}}/info?id=1",
+          "raw": "http://localhost:8080/sales/report/client/2",
+          "protocol": "http",
           "host": [
-            "{{base_url}}"
+            "localhost"
           ],
+          "port": "8080",
           "path": [
-            "info"
-          ],
-          "query": [
-            {
-              "key": "id",
-              "value": "1"
-            }
+            "sales",
+            "report",
+            "client",
+            "2"
           ]
         },
         "description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -175,7 +173,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzczMDkzMDgzLCJleHAiOjE3NzMwOTY2ODN9.-3FGublsThIMxSVhqE5whjSdZ0ZgalSj0_cwgUTfhaU",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NzcwMDQ1MjUsImV4cCI6MTc3NzAwODEyNX0.ykxgrFiiMlYcW2cekwChektsajOPR7xzMz2mgb6bRmw",
               "type": "string"
             }
           ]
@@ -184,7 +182,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"idCliente\": 1,\n  \"idUsuario\": 1,\n  \"detalles\": [\n    {\n      \"idProducto\": 1,\n      \"cantidad\": 2\n    },\n    {\n      \"idProducto\": 3,\n      \"cantidad\": 1\n    }\n  ],\n  \"pagos\": [\n    {\n      \"idMetodo\": 1\n    }\n  ]\n}",
+          "raw": "{\n  \"idCliente\": 2,\n  \"idUsuario\": 1,\n  \"detalles\": [\n    {\n      \"codigoProducto\": \"PROD-0001\",\n      \"cantidad\": 15\n    },\n    {\n      \"codigoProducto\": \"PROD-0003\",\n      \"cantidad\": 15\n    }\n  ],\n  \"pagos\": [\n    {\n      \"idMetodo\": 2\n    }\n  ]\n}",
           "options": {
             "raw": {
               "language": "json"
